@@ -1,0 +1,27 @@
+{
+  "name": "students-app",
+  "version": "1.0.0",
+  "description": "Assigning student to projects",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DenisMaley/students-app"
+  },
+  "author": "Denis Maley",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "connect-flash": "*",
+    "connect-memcached": "*",
+    "express": "3.4.8",
+    "mysql": "^2.13.0",
+    "nconf": "*",
+    "passport": "*",
+    "passport-local": "*",
+    "pug": "^2.0.0-beta10"
+  }
+}

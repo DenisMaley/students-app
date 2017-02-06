@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  if(user)
+    div(class="user-data")
+      span You are logged in as #{user.student_name}
+    div(class="clear")
+    a(href="/sign-out", class="sign-out") Log out ←
+  else  
+    div(class="inner cover")
+        h1(class="cover-heading") Students` projects App
+        p(class="lead") Assigning student to projects App Using Node.js & MySQL.
+        p(class="lead")
+          a(href="/signin", class="btn btn-lg btn-default") Sign in
+block li_signout
+  if(user)
+    li
+      a(href="/sign-out") Sign out
+block li_signin
+  if(!user)
+    li
+      a(href="/signin") Sign in

@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  div(class="inner cover")
+    form(class="form-signin", action="/signin" method="post")
+      h2(class="email") Please sign in
+      label(for="email", class="sr-only") Your Email address 
+      input(type="email", id="email", name="email", class="form-control", placeholder="Email address", required="", autofocus="") 
+      label(for="pass", class="sr-only") Password 
+      input(type="password", id="pass", class="form-control", name="password", placeholder="Password", required="")
+      if(error.length>0)
+        div(class="alert alert-danger", role="alert")= error
+      button(id="btnSignIn", class="btn btn-lg btn-primary btn-block", type="submit") Sign in
+block li_signin
+  li
+    a(href="/signin") Sign in

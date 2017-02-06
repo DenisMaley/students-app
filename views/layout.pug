@@ -1,0 +1,34 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1")
+    meta(name="description", content="Assigning student to projects")
+    meta(name="author", content="Denis Maley")
+    meta(name="robots", content="noindex,nofollow")
+    title Students` projects App
+    link(rel="shortcut icon", href="/favicon.ico")
+    link(rel="stylesheet", href="/css/bootstrap/dist/css/bootstrap.min.css")
+    link(rel='stylesheet', href='/css/styles.css')
+    
+  body
+    div(class="site-wrapper")
+      div(class="site-wrapper-inner")
+        div(class="cover-container")
+          div(class="masthead clearfix")
+            div(class="inner")
+              h3(class="masthead-brand") Students` projects App
+              nav
+                ul(class="nav masthead-nav")
+                  li
+                    a(href="/") Home
+                  li
+                    a(href="/projects") Projects
+                  block li_signin
+                  block li_signout
+          block content
+          div(class="mastfoot")
+            div(class="inner")
+              p Students` projects App, by 
+                a(href="https://nl.linkedin.com/in/maleydenis") Denis Maley
