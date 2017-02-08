@@ -6,6 +6,19 @@ block content
       span You are logged in as #{user.student_name}
     div(class="clear")
     a(href="/sign-out", class="sign-out") Log out ←
+    div.container(style="margin-top: 100px;")
+      div#advanced(style="margin-left: 30px;")
+        div.block__list.block__list_words(style="width: 25%; float: left; margin-top: 15px; margin-left: 10px")
+          div.block__list-title pull & put
+          ul#advanced-1
+            for project in projects
+              li= project.project_name
+        div.block__list.block__list_words(style="width: 25%; float: left; margin-top: 15px; margin-left: 10px")
+          div.block__list-title only put
+          ul#advanced-2
+        div(style="clear: both")
+    script(src="js/Sortable.js")
+    script(src="js/home.js")
   else  
     div(class="inner cover")
         h1(class="cover-heading") Students` projects App

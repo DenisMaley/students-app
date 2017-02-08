@@ -1,7 +1,8 @@
 module.exports = function (app) {
     app.get('/', function (req, res) {
         res.render('index', {
-            user: req.user
+            user: req.user,
+			projects: req.projects
         });
     });
 };

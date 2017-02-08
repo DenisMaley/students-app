@@ -22,6 +22,7 @@
     "nconf": "*",
     "passport": "*",
     "passport-local": "*",
-    "pug": "^2.0.0-beta10"
+    "pug": "^2.0.0-beta10",
+    "sortablejs": "^1.5.0-rc1"
   }
 }
