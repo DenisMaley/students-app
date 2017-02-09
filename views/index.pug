@@ -6,19 +6,54 @@ block content
       span You are logged in as #{user.student_name}
     div(class="clear")
     a(href="/sign-out", class="sign-out") Log out ←
-    div.container(style="margin-top: 100px;")
-      div#advanced(style="margin-left: 30px;")
-        div.block__list.block__list_words(style="width: 25%; float: left; margin-top: 15px; margin-left: 10px")
-          div.block__list-title pull & put
-          ul#advanced-1
-            for project in projects
-              li= project.project_name
-        div.block__list.block__list_words(style="width: 25%; float: left; margin-top: 15px; margin-left: 10px")
-          div.block__list-title only put
-          ul#advanced-2
-        div(style="clear: both")
-    script(src="js/Sortable.js")
-    script(src="js/home.js")
+    div.row
+      div.col-xs-6
+        ul.list-group.do-drop#projects-list
+          li.list-group-item 
+            span.project-number
+            span qwe1
+          li.list-group-item 
+            span.project-number
+            span qwe2
+          li.list-group-item 
+            span.project-number
+            span qwe3
+          li.list-group-item 
+            span.project-number
+            span qwe4
+          li.list-group-item 
+            span.project-number
+            span qwe5
+          li.list-group-item 
+            span.project-number
+            span qwe6
+          li.list-group-item 
+            span.project-number
+            span qwe7
+          li.list-group-item 
+            span.project-number
+            span qwe8
+          li.list-group-item 
+            span.project-number
+            span qwe9
+          li.list-group-item 
+            span.project-number
+            span qwe10
+          li.list-group-item 
+            span.project-number
+            span qwe11
+          li.list-group-item 
+            span.project-number
+            span qwe12
+          li.list-group-item 
+            span.project-number
+            span qwe13
+      div.col-xs-6
+        ul.list-group.do-drop#chosen-projects-list
+    link(rel="stylesheet", href="/vendors/jquery-ui/jquery-ui.min.css")
+    script(src="/vendors/jquery-ui/external/jquery/jquery.js")
+    script(src="/vendors/jquery-ui/jquery-ui.min.js")
+    script(src="/js/home.js")
   else  
     div(class="inner cover")
         h1(class="cover-heading") Students` projects App
