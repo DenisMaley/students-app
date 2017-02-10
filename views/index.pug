@@ -1,5 +1,10 @@
 extends layout
 
+mixin projectitem(project)
+  li.list-group-item 
+    span.project-number
+    span= project.project_name
+
 block content
   if(user)
     div(class="user-data")
@@ -9,45 +14,8 @@ block content
     div.row
       div.col-xs-6
         ul.list-group.do-drop#projects-list
-          li.list-group-item 
-            span.project-number
-            span qwe1
-          li.list-group-item 
-            span.project-number
-            span qwe2
-          li.list-group-item 
-            span.project-number
-            span qwe3
-          li.list-group-item 
-            span.project-number
-            span qwe4
-          li.list-group-item 
-            span.project-number
-            span qwe5
-          li.list-group-item 
-            span.project-number
-            span qwe6
-          li.list-group-item 
-            span.project-number
-            span qwe7
-          li.list-group-item 
-            span.project-number
-            span qwe8
-          li.list-group-item 
-            span.project-number
-            span qwe9
-          li.list-group-item 
-            span.project-number
-            span qwe10
-          li.list-group-item 
-            span.project-number
-            span qwe11
-          li.list-group-item 
-            span.project-number
-            span qwe12
-          li.list-group-item 
-            span.project-number
-            span qwe13
+          for project in projects
+            +projectitem(project)
       div.col-xs-6
         ul.list-group.do-drop#chosen-projects-list
     link(rel="stylesheet", href="/vendors/jquery-ui/jquery-ui.min.css")

@@ -1,8 +1,10 @@
+var projects = require('../models/ProjectCollection');
+console.log(projects);
 module.exports = function (app) {
     app.get('/', function (req, res) {
         res.render('index', {
-            user: req.user,
-			projects: req.projects
+            projects: projects.collection,
+			user: req.user
         });
     });
 };
