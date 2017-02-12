@@ -7,11 +7,14 @@ block content
       a(href='https://www.uu.nl/staff/'+ project.supervisor_profile)= project.supervisor_name
     div= project.project_description
     
-block li_signout
+block nav
+  li
+   a(href="/") Home
+  li
+   a(href="/projects") Projects
   if(user)
     li
       a(href="/sign-out") Sign out
-block li_signin
-  if(!user)
+  else
     li
       a(href="/signin") Sign in

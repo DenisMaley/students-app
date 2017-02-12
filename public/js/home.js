@@ -38,7 +38,7 @@
             });
 		},
 	}).text(
-		'Drop here '+project_limit+' projects.'
+		'Drag and drop here '+project_limit+' projects and rank them: 1 - the highest priority, '+project_limit+' - the lowest priority'
 	);
 	
 	$( "ul.do-drop#projects-list, ul.do-drop#chosen-projects-list" ).disableSelection();
