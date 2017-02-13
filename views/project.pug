@@ -1,20 +1,39 @@
 extends layout
 
 block content
-  div.inner.cover
-    h1.cover-heading= project.project_name
-    div Supervisor of the thesis: 
-      a(href='https://www.uu.nl/staff/'+ project.supervisor_profile)= project.supervisor_name
-    div= project.project_description
-    
+  div.row.row-content.row-no-border.row-less-space
+    div.col-xs-10.col-xs-offset-1
+      div.row.row-content.row-less-space
+        div.col-xs-12
+          h3(align="center") Project proposal
+          p(style="padding:10px;")
+        div.col-xs-12
+          div.panel.panel-warning
+            div.panel-heading
+              h3.panel-title= project.project_name
+            div.panel-body
+              span Supervisor of the thesis: 
+              a(href='https://www.uu.nl/staff/'+ project.supervisor_profile)= project.supervisor_name
+              br
+              span Description: 
+              br
+              span= project.project_description
 block nav
   li
-   a(href="/") Home
+    a(href="/")
+      span.glyphicon.glyphicon-home(aria-hidden="true")
+      span  Home 
   li
-   a(href="/projects") Projects
+    a(href="/projects")
+      span.glyphicon.glyphicon-list-alt(aria-hidden="true")
+      span  Projects 
   if(user)
     li
-      a(href="/sign-out") Sign out
+      a(href="/sign-out")
+        span.glyphicon.glyphicon-log-out(aria-hidden="true")
+        span  Sign out
   else
     li
-      a(href="/signin") Sign in
+      a(href="/signin")
+        span.glyphicon.glyphicon-log-in(aria-hidden="true")
+        span  Sign in

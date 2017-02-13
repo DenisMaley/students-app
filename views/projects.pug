@@ -3,22 +3,35 @@ extends layout
 mixin projectblock(project)
   a.list-group-item(href='/projects/'+ project.project_id)
     h4.list-group-item-heading= project.project_name
-    p.list-group-item-text Supervisor of the thesis: #{project.supervisor_name}
-	  
+    p.list-group-item-text= project.supervisor_name
+      
 block content
-  div.inner.cover
-    h1.cover-heading List of project proposals
-    div.pre-scrollable
-      for project in projects
-        +projectblock(project)
+  div.row.row-content.row-no-border.row-less-space
+    div.col-xs-10.col-xs-offset-1
+      div.row.row-content.row-less-space                                
+        div.col-xs-12
+          h3(align="center") List of project proposals
+          p(style="padding:10px;")
+        div.col-xs-12                    
+          div.list-group
+            for project in projects
+              +projectblock(project) 
 block nav
   li
-   a(href="/") Home
+    a(href="/")
+      span.glyphicon.glyphicon-home(aria-hidden="true")
+      span  Home 
   li.active
-   a(href="/projects") Projects
+    a(href="/projects")
+      span.glyphicon.glyphicon-list-alt(aria-hidden="true")
+      span  Projects 
   if(user)
     li
-      a(href="/sign-out") Sign out
+      a(href="/sign-out")
+        span.glyphicon.glyphicon-log-out(aria-hidden="true")
+        span  Sign out
   else
     li
-      a(href="/signin") Sign in
+      a(href="/signin")
+        span.glyphicon.glyphicon-log-in(aria-hidden="true")
+        span  Sign in

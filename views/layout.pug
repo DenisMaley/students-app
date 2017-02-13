@@ -9,21 +9,52 @@ html(lang="en")
     meta(name="robots", content="noindex,nofollow")
     title Students` projects App
     link(rel="shortcut icon", href="/favicon.ico")
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Montserrat", type="text/css")
+    link(rel="stylesheet", href="http://fonts.googleapis.com/css?family=Lato", type="text/css")
     link(rel="stylesheet", href="/vendors/bootstrap/dist/css/bootstrap.min.css")
+    link(rel="stylesheet", href="/vendors/bootstrap/dist/css/bootstrap-theme.min.css")
+    link(rel="stylesheet", href="/vendors/font-awesome/css/font-awesome.min.css")
     link(rel='stylesheet', href='/css/styles.css')
+    script(src="/vendors/jquery-ui/external/jquery/jquery.js")
+    script(src="/vendors/bootstrap/dist/js/bootstrap.min.js")
     
   body
-    div(class="site-wrapper")
-      div(class="site-wrapper-inner")
-        div(class="cover-container")
-          div(class="masthead clearfix")
-            div(class="inner")
-              h3(class="masthead-brand") Students` projects App
-              nav
-                ul(class="nav masthead-nav")
-                  block nav
-          block content
-          div(class="mastfoot")
-            div(class="inner")
-              p Students` projects App, by 
-                a(href="https://nl.linkedin.com/in/maleydenis") Denis Maley
+    nav.navbar.navbar-fixed-top(role="navigation")
+      div.container
+        div.navbar-collapse.collapse#navbar
+          ul.nav.navbar-nav
+            block nav
+    div.container
+      block content
+      div.modal.fade#aboutModal(role="dialog")
+        div.modal-dialog
+          div.modal-content
+            div.modal-header
+              button.close(type="button", data-dismiss="modal")
+                span(style="color:#ffcd00;")
+                  span.glyphicon.glyphicon-remove
+              h2.form-signin-heading.text-center(style="color:#ffcd00; background:none;")
+                span.glyphicon.glyphicon-info-sign. 
+                span  About
+            div.modal-body
+              p(align="left"). 
+                Psychology students should successfully work on a small research project and write a thesis 
+                to complete their Bachelor education. They can either work individually or in a small group 
+                of two or three students. Twice a year, faculty and staff compile a substantial list of project 
+                proposals (about thirty) for the students to choose from. The students are asked through a 
+                course website - to send-in their preference as list of up to five ranked proposals (1…5),
+                possibly accompanied by the names and student IDs of fellow students they want to work 
+                with. Then, the challenge is to assign the students to the projects so they can each work on 
+                a project from their top-5, while groups of students take precedence over individuals. When 
+                a teacher turns out to have a mix of popular and highly unpopular projects, more than one 
+                group can be assigned to one project while unpopular projects may be dropped altogether.
+                Finally, the students should get a notification explaining which project they get assigned to.
+            div.modal-footer
+              button.btn.btn-success.pull-center(type="submit", data-dismiss="modal")
+                span.glyphicon.glyphicon-ok 
+                span  Ok
+    footer.footer
+      div.container
+        p(align="center") Students` projects App, by 
+          a(href="https://nl.linkedin.com/in/maleydenis") Denis Maley
+        p(align="center") © Copyright 2017 Utrecht University 

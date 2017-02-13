@@ -42,4 +42,13 @@
 	);
 	
 	$( "ul.do-drop#projects-list, ul.do-drop#chosen-projects-list" ).disableSelection();
+	
+	$('button#send-request').on('click', function(){
+		var project_arr = $('ul#chosen-projects-list li').map(function(i, el){
+			return $(this).attr('id').replace('project-', '');
+		}).get();
+		var project_arr = JSON.stringify(project_arr);
+		console.log(project_arr);
+	});
+	
 } )();
