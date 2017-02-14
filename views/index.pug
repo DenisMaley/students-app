@@ -6,7 +6,7 @@ mixin projectitem(project)
     span= project.project_name
 
 mixin studentitem(student)
-  option(value= student.student_id) #{student.student_name} #{student.student_surname} (Student ##{student.student_id} )
+  option(value= student.student_id, title= student.student_title +' '+ student.student_surname) #{student.student_name} #{student.student_surname} (##{student.student_id} )
     
 block content
   div.row.row-content.row-no-border
@@ -20,34 +20,35 @@ block content
             h3 Please select the way you want to write a thesis
           div.col-xs-12
             form.form-horizontal(role="form")
-              div.radio
-                label
-                  input#optionsRadios1(type="radio", name="optionsRadios", value="option1" checked)
+              div.btn-group.option-way(data-toggle="buttons")
+                label.btn.btn-lg.btn-warning-2.active
+                  input#by_oneself(type="radio", value="oneself", name="option-way", autocomplete="off", checked)
                   span All by myself
-              div.radio
-                label
-                  input#optionsRadios2(type="radio", name="optionsRadios", value="option2")
-                  span With... (2 students max)    
-                p(style="padding-top:20px;")
-                select.selectpicker(data-style="btn-warning-2", data-live-search="true", multiple, data-max-options="2", data-width="400px", size='8')
-                  for student in students
-                    if(user.student_id != student.student_id)
-                      +studentitem(student)
+                label.btn.btn-lg.btn-warning-2
+                  input#in_a_group(type="radio", value="group", name="option-way", autocomplete="off")
+                  span In a group with...
+              select.selectpicker(data-style="btn-lg btn-warning-2 active invisible", data-live-search="true", multiple, data-max-options="2", title="(2 students max)", data-width="fit", data-size='8')
+                for student in students
+                  if(user.student_id != student.student_id)
+                    +studentitem(student)
         div.row.row-content
           div.col-xs-12
             h3 Please choose projects and place them in preferred order
               p(style="padding:20px;")
           div.col-xs-6
-            ul.list-group.do-drop#projects-list
+            ul.list-group.do-drop#projects_list
               for project in projects
                 +projectitem(project)
           div.col-xs-6
-            ul.list-group.do-drop#chosen-projects-list
+            ul.list-group.do-drop#chosen_projects_list
         div.row.row-content
+          div.alert.alert-danger.invisible
+            strong Warning! 
+            span.message 
           div.col-xs-4.col-xs-offset-5
             div.form-group
               p(style="padding:10px;")
-              button.btn.btn-warning-2.btn-lg#send-request(type="submit") Send Request
+              button.btn.btn-warning-2.btn-lg#send_request(type="submit") Send Request
       link(rel="stylesheet", href="/vendors/jquery-ui/jquery-ui.min.css")
       link(rel="stylesheet", href="/vendors/bootstrap-select/dist/css/bootstrap-select.min.css")
       script(src="/vendors/jquery-ui/jquery-ui.min.js")
@@ -77,7 +78,7 @@ block nav
       span.glyphicon.glyphicon-home(aria-hidden="true")
       span  Home 
   li
-    a(data-toggle="modal", data-target="#aboutModal")
+    a(data-toggle="modal", data-target="#about_modal")
       span.glyphicon.glyphicon-info-sign(aria-hidden="true")
       span  About 
   li
@@ -86,7 +87,7 @@ block nav
       span  Projects 
   if(user)
     li
-      a(href="/sign-out")
+      a(href="/signout")
         span.glyphicon.glyphicon-log-out(aria-hidden="true")
         span  Sign out
   else

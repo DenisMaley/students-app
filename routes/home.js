@@ -9,4 +9,10 @@ module.exports = function (app) {
 			user: req.user
         });
     });
+	
+	app.post('/handle-request', function(req, res){
+		var obj = {message: 'ok'};
+		console.log('body: ' + JSON.stringify(req.body));
+		res.send(obj);
+	});
 };

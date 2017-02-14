@@ -13,8 +13,19 @@ module.exports = function (app) {
             error: req.flash('error')
         });
     });
-
-    app.get('/sign-out', function (req, res) {
+	
+	app.get('/api/user_data', function(req, res) {
+		if (req.user === undefined) {
+			// The user is not logged in
+			res.json({});
+		} else {
+			res.json({
+				user: req.user
+			});
+		}
+	});
+	
+    app.get('/signout', function (req, res) {
         req.logout();
         res.redirect('/');
     });

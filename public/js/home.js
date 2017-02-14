@@ -3,9 +3,16 @@
 	//Properties and events you can find here http://api.jqueryui.com/sortable/
 	
 	var project_limit = 5;
+	var list_placeholder = '<span id="list-placeholder">Drag and drop here '+project_limit+' projects and rank them: 1 - the highest priority, '+project_limit+' - the lowest priority</span>';
+	
+	var user = {};
+	//Get info about 
+	$.getJSON("api/user_data", function(data) {
+		user = data.user;
+	});
 	
 	//All project list 
-	$( "ul.do-drop#projects-list" ).sortable({
+	$( "ul.do-drop#projects_list" ).sortable({
 		connectWith: "ul.do-drop",
 		//After returning project from list of chosen we zeroize numbering
 		receive: function(ui) {
@@ -14,7 +21,7 @@
 	});
 	
 	//Chosen list
-	$('ul.do-drop#chosen-projects-list').sortable({
+	$('ul.do-drop#chosen_projects_list').sortable({
 		connectWith:'ul.do-drop',
 		//We block dropping if limit of projects is over
 		receive: function(ui) {
@@ -22,12 +29,21 @@
 				$(this).addClass('dont-drop');
 				$('.do-drop').sortable('option', 'connectWith',$('.do-drop:not(.dont-drop)'));
 			}
+			
+			if($(this).children('li').length == 1){
+				$(this).find('span#list-placeholder').remove();
+			}
 		},
 		//Unblock if project is returning
 		beforeStop: function(ui) {
 			if($(this).children().length < project_limit) {
 				$(this).removeClass('dont-drop');
 				$('.do-drop').sortable('option', 'connectWith',$('.do-drop:not(.dont-drop)'));
+				
+				if($(this).children().length == 0){
+					$(this).html(list_placeholder);
+				}
+				
 			}
 		},
 		//Set numbering of items
@@ -37,18 +53,61 @@
                 $(this).find('span.project-number').html(project_num + '. ');
             });
 		},
-	}).text(
-		'Drag and drop here '+project_limit+' projects and rank them: 1 - the highest priority, '+project_limit+' - the lowest priority'
-	);
+	}).html(list_placeholder);
 	
-	$( "ul.do-drop#projects-list, ul.do-drop#chosen-projects-list" ).disableSelection();
+	$('ul.do-drop#projects_list, ul.do-drop#chosen_projects_list').disableSelection();
 	
-	$('button#send-request').on('click', function(){
-		var project_arr = $('ul#chosen-projects-list li').map(function(i, el){
+	$('label.btn').on('click', function(){
+		var group_selector = $(this).closest('form.form-horizontal').find('div.bootstrap-select button.dropdown-toggle');
+		if($(this).has('input#in_a_group').length){
+			group_selector.removeClass('invisible');
+		}else{
+			group_selector.addClass('invisible');
+		}
+		
+	});
+	
+	$('button#send_request').on('click', function(){
+		
+		var data = {
+			user: user.student_id
+		};
+		data.project_arr = $('ul#chosen_projects_list li').map(function(i, el){
 			return $(this).attr('id').replace('project-', '');
 		}).get();
-		var project_arr = JSON.stringify(project_arr);
-		console.log(project_arr);
+		
+		if(data.project_arr.length < project_limit){
+			setErrorMessage('You have to choose '+project_limit+' projects and rank them from 1 to '+project_limit+'.');
+			return;
+		}
+		
+		data.way = $('div.btn-group.option-way input:radio:checked').val();
+		data.group = [];
+		if(data.way == 'group'){
+			data.group = $('form.form-horizontal').find('select').val();
+			if(!data.group){
+				data.way = 'oneself';
+				data.group = [];
+			}
+		}
+		
+		data.group.unshift(String(user.student_id));
+
+		var jsonData = JSON.stringify(data);
+		console.log(jsonData);
+		$.ajax({
+			type: 'POST',
+			data: jsonData,
+			contentType: 'application/json',
+			url: '/handle-request',						
+			success: function(data) {
+				console.log(JSON.stringify(data));
+			}
+		});
 	});
+	
+	function setErrorMessage(message){
+		$('div.alert-danger').removeClass('invisible').find('span.message').text(message);
+	}
 	
 } )();

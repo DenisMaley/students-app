@@ -51,7 +51,7 @@ footer {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  height: 60px; 
+  /*height: 75px; */
 }
 
 /*
@@ -60,7 +60,6 @@ footer {
 .row-content {
     margin:0px auto;
     padding: 50px 0px 50px 0px;
-    border-bottom: 1px ridge;
     min-height:200px;
 }
 .row-no-border{
@@ -103,27 +102,39 @@ text-shadow: 0 -1px 0 rgba(0,0,0,.2);
     -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
     box-shadow: inset 0 1px 0 rgba(255,255,255,.15), 0 1px 1px rgba(0,0,0,.075);
 }
+.btn-warning-2.active {
+	color: black!important;
+}
 a.list-group-item:hover,
 li.list-group-item:hover{
 	background-color: #ffcd00;
 }
 ul.do-drop li.list-group-item {
     padding: 1px 15px;
+	cursor: -webkit-grab; 
+	cursor:-moz-grab;
 }
-#chosen-projects-list{
+ul.do-drop li.list-group-item:active { 
+	cursor: -webkit-grabbing; 
+	cursor:-moz-grabbing;
+}
+#chosen_projects_list{
 	border: 3px dotted #ffcd00;
 }
-#chosen-projects-list li.list-group-item{
+#chosen_projects_list li.list-group-item{
 	background-color: #ffcd00;
 }
 .panel-warning>.panel-heading{
-color:black;
+color: black;
 border-color: #ffcd00; 
 background-color: #ffcd00;
 background-image: linear-gradient(to bottom,#ffcd00 0,#ffcd00 100%);
 }
 .panel-title{
 	font-size:20px;
+}
+.invisible{
+	display: none;
 }
 .vcenter {
   position: absolute;

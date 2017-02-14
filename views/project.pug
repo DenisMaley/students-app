@@ -24,7 +24,7 @@ block nav
       span.glyphicon.glyphicon-home(aria-hidden="true")
       span  Home  
   li
-    a(data-toggle="modal", data-target="#aboutModal")
+    a(data-toggle="modal", data-target="#about_modal")
       span.glyphicon.glyphicon-info-sign(aria-hidden="true")
       span  About 
   li
@@ -33,7 +33,7 @@ block nav
       span  Projects 
   if(user)
     li
-      a(href="/sign-out")
+      a(href="/signout")
         span.glyphicon.glyphicon-log-out(aria-hidden="true")
         span  Sign out
   else
