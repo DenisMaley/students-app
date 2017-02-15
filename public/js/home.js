@@ -70,24 +70,27 @@
 	$('button#send_request').on('click', function(){
 		
 		var data = {
-			user: user.student_id
+			request: {
+				student_id: user.student_id
+			},	
+			group: []
 		};
-		data.project_arr = $('ul#chosen_projects_list li').map(function(i, el){
+		var project_arr = $('ul#chosen_projects_list li').map(function(i, el){
 			return $(this).attr('id').replace('project-', '');
 		}).get();
 		
-		if(data.project_arr.length < project_limit){
+		if(project_arr.length < project_limit){
 			setErrorMessage('You have to choose '+project_limit+' projects and rank them from 1 to '+project_limit+'.');
 			return;
 		}
 		
-		data.way = $('div.btn-group.option-way input:radio:checked').val();
-		data.group = [];
-		if(data.way == 'group'){
+		data.request.request_conf = project_arr.join(';')
+		var way = $('div.btn-group.option-way input:radio:checked').val();
+		if(way == 'group'){
 			data.group = $('form.form-horizontal').find('select').val();
 			if(!data.group){
-				data.way = 'oneself';
-				data.group = [];
+				setErrorMessage('You have to choose at least one project participant if you want to work in a group.');
+				return;
 			}
 		}
 		
@@ -100,8 +103,11 @@
 			data: jsonData,
 			contentType: 'application/json',
 			url: '/handle-request',						
-			success: function(data) {
-				console.log(JSON.stringify(data));
+			success: function (result) {
+				console.log(result);
+				if(result.status == 200){
+					console.log('Hooray');
+				}
 			}
 		});
 	});

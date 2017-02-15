@@ -1,14 +1,16 @@
 var db = require('./db');
 
+var method = ProjectCollection.prototype;
+
 function ProjectCollection(collection) {
   this.collection = collection;
 }
 
-ProjectCollection.prototype.findProject = function(id) {
+method.findProject = function(id) {
 	if (!this.collection[id]){
 		return new Error('No project matching '+ id);
 	}
-	return collection[id];
+	return this.collection[id];
 };
 
 var collection={};

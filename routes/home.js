@@ -1,18 +1,21 @@
-var projects = require('../models/ProjectCollection');
-var students = require('../models/StudentCollection');
+var ProjectCollection = require('../models/ProjectCollection');
+var StudentCollection = require('../models/StudentCollection');
+var RequestHandler = require('../models/RequestHandler');
 
 module.exports = function (app) {
     app.get('/', function (req, res) {
         res.render('index', {
-            students: students.collection,
-            projects: projects.collection,
+            students: StudentCollection.collection,
+            projects: ProjectCollection.collection,
 			user: req.user
         });
     });
 	
 	app.post('/handle-request', function(req, res){
-		var obj = {message: 'ok'};
-		console.log('body: ' + JSON.stringify(req.body));
-		res.send(obj);
+		var handler = new RequestHandler(req.body);
+		var response = handler.insertData();
+		
+		console.log(req.body);
+		res.json(response);
 	});
 };

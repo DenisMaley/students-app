@@ -1,10 +1,10 @@
-var projects = require('../models/ProjectCollection');
+var ProjectCollection = require('../models/ProjectCollection');
 
 module.exports = function (app) {
 	
     app.get('/projects', function (req, res) {
         res.render('projects', {
-            projects: projects.collection,
+            projects: ProjectCollection.collection,
 			user: req.user
         });
     });
@@ -12,7 +12,7 @@ module.exports = function (app) {
 	app.get('/projects/:id', function(req, res) {
 		var id = req.params.id;
 		res.render('project', {
-			project: projects.findProject(id),
+			project: ProjectCollection.findProject(id),
 			user: req.user
 		});
 	});
