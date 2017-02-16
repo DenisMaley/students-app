@@ -1,4 +1,5 @@
 var ProjectCollection = require('../models/ProjectCollection');
+var InvitationCollection = require('../models/InvitationCollection');
 var StudentCollection = require('../models/StudentCollection');
 var RequestHandler = require('../models/RequestHandler');
 
@@ -7,6 +8,8 @@ module.exports = function (app) {
         res.render('index', {
             students: StudentCollection.collection,
             projects: ProjectCollection.collection,
+            request: InvitationCollection.getRequest(req.user),
+            invitations: InvitationCollection.getInvitations(req.user),
 			user: req.user
         });
     });
@@ -15,7 +18,8 @@ module.exports = function (app) {
 		var handler = new RequestHandler(req.body);
 		var response = handler.insertData();
 		
-		console.log(req.body);
-		res.json(response);
+		if(response.status == 200){
+            res.json(response);
+        }
 	});
 };

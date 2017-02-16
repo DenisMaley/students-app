@@ -12,7 +12,7 @@ module.exports = function (app) {
 	app.get('/projects/:id', function(req, res) {
 		var id = req.params.id;
 		res.render('project', {
-			project: ProjectCollection.findProject(id),
+			project: ProjectCollection.getProject(id),
 			user: req.user
 		});
 	});

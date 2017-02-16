@@ -2,8 +2,8 @@
 	
 	//Properties and events you can find here http://api.jqueryui.com/sortable/
 	
-	var project_limit = 5;
-	var list_placeholder = '<span id="list-placeholder">Drag and drop here '+project_limit+' projects and rank them: 1 - the highest priority, '+project_limit+' - the lowest priority</span>';
+	var PROJECT_LIMIT = 5;
+	var LIST_PLACEHOLDER = '<span id="list-placeholder">Drag and drop here '+PROJECT_LIMIT+' projects and rank them: 1 - the highest priority, '+PROJECT_LIMIT+' - the lowest priority</span>';
 	
 	var user = {};
 	//Get info about 
@@ -25,7 +25,7 @@
 		connectWith:'ul.do-drop',
 		//We block dropping if limit of projects is over
 		receive: function(ui) {
-			if($(this).children().length >= project_limit) {
+			if($(this).children().length >= PROJECT_LIMIT) {
 				$(this).addClass('dont-drop');
 				$('.do-drop').sortable('option', 'connectWith',$('.do-drop:not(.dont-drop)'));
 			}
@@ -36,12 +36,12 @@
 		},
 		//Unblock if project is returning
 		beforeStop: function(ui) {
-			if($(this).children().length < project_limit) {
+			if($(this).children().length < PROJECT_LIMIT) {
 				$(this).removeClass('dont-drop');
 				$('.do-drop').sortable('option', 'connectWith',$('.do-drop:not(.dont-drop)'));
 				
 				if($(this).children().length == 0){
-					$(this).html(list_placeholder);
+					$(this).html(LIST_PLACEHOLDER);
 				}
 				
 			}
@@ -53,10 +53,11 @@
                 $(this).find('span.project-number').html(project_num + '. ');
             });
 		},
-	}).html(list_placeholder);
+	}).html(LIST_PLACEHOLDER);
 	
 	$('ul.do-drop#projects_list, ul.do-drop#chosen_projects_list').disableSelection();
 	
+	//Choose way of writing
 	$('label.btn').on('click', function(){
 		var group_selector = $(this).closest('form.form-horizontal').find('div.bootstrap-select button.dropdown-toggle');
 		if($(this).has('input#in_a_group').length){
@@ -67,6 +68,7 @@
 		
 	});
 	
+	//Send a request
 	$('button#send_request').on('click', function(){
 		
 		var data = {
@@ -79,12 +81,12 @@
 			return $(this).attr('id').replace('project-', '');
 		}).get();
 		
-		if(project_arr.length < project_limit){
-			setErrorMessage('You have to choose '+project_limit+' projects and rank them from 1 to '+project_limit+'.');
+		if(project_arr.length < PROJECT_LIMIT){
+			setErrorMessage('You have to choose '+PROJECT_LIMIT+' projects and rank them from 1 to '+PROJECT_LIMIT+'.');
 			return;
 		}
 		
-		data.request.request_conf = project_arr.join(';')
+		data.request.request_conf = JSON.stringify(project_arr);//We will store request configuration to a database in JSON
 		var way = $('div.btn-group.option-way input:radio:checked').val();
 		if(way == 'group'){
 			data.group = $('form.form-horizontal').find('select').val();
@@ -106,7 +108,12 @@
 			success: function (result) {
 				console.log(result);
 				if(result.status == 200){
-					console.log('Hooray');
+					setSuccessMessage('Yor request has been successfully registered. You will be redirected in a few seconds.');
+					$('button#send_request').unbind('click');
+					setTimeout(function() { 
+						window.location.replace('/');
+						return;
+					}, 5000);
 				}
 			}
 		});
@@ -114,6 +121,10 @@
 	
 	function setErrorMessage(message){
 		$('div.alert-danger').removeClass('invisible').find('span.message').text(message);
+	}
+	function setSuccessMessage(message){
+		$('div.alert-danger').addClass('invisible')
+		$('div.alert-success').removeClass('invisible').find('span.message').text(message);
 	}
 	
 } )();

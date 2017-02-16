@@ -1,10 +1,5 @@
 extends layout
-
-mixin projectblock(project)
-  a.list-group-item(href='/projects/'+ project.project_id)
-    h4.list-group-item-heading= project.project_name
-    p.list-group-item-text= project.supervisor_name
-      
+    
 block content
   div.row.row-content.row-no-border.row-less-space
     div.col-xs-10.col-xs-offset-1
@@ -14,8 +9,10 @@ block content
           p(style="padding:10px;")
         div.col-xs-12                    
           div.list-group
+            - var i = 0;
             for project in projects
-              +projectblock(project) 
+              - ++i;
+              +projectblock(i, project
 block nav
   li
     a(href="/")

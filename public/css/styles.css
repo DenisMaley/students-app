@@ -112,11 +112,11 @@ li.list-group-item:hover{
 ul.do-drop li.list-group-item {
     padding: 1px 15px;
 	cursor: -webkit-grab; 
-	cursor:-moz-grab;
+	cursor: -moz-grab;
 }
 ul.do-drop li.list-group-item:active { 
 	cursor: -webkit-grabbing; 
-	cursor:-moz-grabbing;
+	cursor: -moz-grabbing;
 }
 #chosen_projects_list{
 	border: 3px dotted #ffcd00;

@@ -1,3 +1,8 @@
+mixin projectblock(i, project)
+  a.list-group-item(href='/projects/'+ project.project_id)
+    h4.list-group-item-heading= i +'. '+ project.project_name
+    p.list-group-item-text= project.supervisor_name
+
 doctype html
 html(lang="en")
   head
