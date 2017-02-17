@@ -16,16 +16,21 @@ method.getProject = function(id) {
 
 method.getSubCollection = function(conf) {
 	
-	/* We store request configuration in JSON in our DB
+	/*
+	 * We store request configuration in JSON in our DB
 	 * Elements are strings and we need to
 	 * turn them to integers, because el.project_id is integer
 	 */
 	var conf_arr = JSON.parse(conf).map(function(id) {
 		return +id;
 	});
-	var subCollection = objectFilter(this.collection, function (el) {
-		return conf_arr.indexOf(el.project_id) > -1;
-	});
+	var subCollection = [];
+	for(var i = 0, len = conf_arr.length; i < len; i++){
+		subCollection.push(this.getProject(conf_arr[i]));
+	}
+	/*
+	 * We do not use objectFilter, because order is important
+	 */
 	return subCollection;
 };
 

@@ -78,7 +78,7 @@
 			group: []
 		};
 		var project_arr = $('ul#chosen_projects_list li').map(function(i, el){
-			return $(this).attr('id').replace('project-', '');
+			return $(this).data('id');
 		}).get();
 		
 		if(project_arr.length < PROJECT_LIMIT){
@@ -110,6 +110,34 @@
 				if(result.status == 200){
 					setSuccessMessage('Yor request has been successfully registered. You will be redirected in a few seconds.');
 					$('button#send_request').unbind('click');
+					setTimeout(function() { 
+						window.location.replace('/');
+						return;
+					}, 5000);
+				}
+			}
+		});
+	});
+	
+	$('button.inv-adoption').on('click', function(){
+		
+		var data = {
+			invitation_adoption: $(this).data('adoption'),
+			invitation_id: $(this).closest('div.inv-block').data('id')
+		};
+
+		var jsonData = JSON.stringify(data);
+		console.log(jsonData);
+		$.ajax({
+			type: 'POST',
+			data: jsonData,
+			contentType: 'application/json',
+			url: '/handle-invitation',						
+			success: function (result) {
+				console.log(result);
+				if(result.status == 200){
+					$(this).closest('div.btn-group').after('Yor request has been successfully registered. You will be redirected in a few seconds.');
+					$('button.inv-adoption').unbind('click');
 					setTimeout(function() { 
 						window.location.replace('/');
 						return;

@@ -1,4 +1,4 @@
-/*
+/**
  * An analog of function arr.filter(callback[, thisArg]) for objects
  * This method creates an object filled with all 
  * object properties that pass a test (provided as a function).

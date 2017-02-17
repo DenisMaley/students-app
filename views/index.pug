@@ -1,13 +1,34 @@
 extends layout
 
 mixin projectitem(project)
-  li.list-group-item(id= 'project-'+project.project_id)
+  li.list-group-item(data-id= project.project_id)
     span.project-number
     span= project.project_name
 
 mixin studentitem(student)
   option(value= student.student_id, title= student.student_title +' '+ student.student_surname) #{student.student_name} #{student.student_surname} (##{student.student_id} )
-    
+
+mixin invitationblock(invitation)
+  div.row.row-content
+    div.col-xs-12
+      div.alert.alert-success.alert-dismissible.inv-block(role="alert", data-id= invitation.invitation_id)
+        button.close(type="button", data-dismiss="alert", aria-label="Close")
+          span(aria-hidden="true") &times;
+        strong Information! 
+        span #{invitation.inviter.student_name} #{invitation.inviter.student_surname} invited you to work in a group on one of the following projects (arranged in order of priority)
+        br
+        div.list-group 
+          - var i = 0;
+          for project in invitation.request_conf
+            - ++i;
+            +projectblock(i, project) 
+        div.btn-group.btn-group-justified(role="group",aria-label="...")
+          div.btn-group(role="group")
+            button.btn.btn-default.btn-success.inv-adoption(type="button" data-adoption="1") Accept
+          div.btn-group(role="group")
+            a.btn.btn-default(type="button", href="/projects") Show the entire list
+          div.btn-group(role="group")
+            button.btn.btn-default.btn-danger.inv-adoption(type="button" data-adoption="-1") Deny
 block content
   div.row.row-content.row-no-border
     if(user)
@@ -28,6 +49,9 @@ block content
           h3(align="center") Hello, #{user.student_title} #{user.student_surname}
           p(style="padding:10px;")
         div.col-xs-10.col-xs-offset-1
+          if(invitations)
+            for invitation in invitations
+              +invitationblock(invitation)
           div.row.row-content
             div.col-xs-12
               h3 Please select the way you want to write a thesis

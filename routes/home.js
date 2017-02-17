@@ -12,11 +12,23 @@ module.exports = function (app) {
             invitations: InvitationCollection.getInvitations(req.user),
 			user: req.user
         });
+		
     });
 	
 	app.post('/handle-request', function(req, res){
 		var handler = new RequestHandler(req.body);
-		var response = handler.insertData();
+		var response = handler.insertRequest();
+		var InvitationCollection = require('../models/InvitationCollection');
+		
+		if(response.status == 200){
+            res.json(response);
+        }
+	});
+	
+	app.post('/handle-invitation', function(req, res){
+		var handler = new RequestHandler(req.body);
+		var response = handler.updateInvitation();
+		var InvitationCollection = require('../models/InvitationCollection');
 		
 		if(response.status == 200){
             res.json(response);

@@ -1,4 +1,6 @@
 var getCollection = require('./GetCollection');
+var ProjectCollection = require('./ProjectCollection');
+var StudentCollection = require('./StudentCollection');
 var objectFilter = require('./ObjectFilter');
 
 var method = InvitationCollection.prototype;
@@ -34,14 +36,14 @@ method.getInvitations = function(student) {
 };
 
 var query = '\
-	Select i.*, r.student_id inviter_id, r.request_conf \
+	Select i.*, r.student_id inviter, r.request_conf \
 	From r_invitations i, r_requests r \
 	Where i.request_id = r.request_id \
 ';
 
 var collection = getCollection(query, 'invitation_id', function(key, value) {
-	var ProjectCollection = require('./ProjectCollection');
 	if (key == 'request_conf') return ProjectCollection.getSubCollection(value);
+	if (key == 'inviter') return StudentCollection.getStudent(value);
 	return value;
 });
 
