@@ -1,6 +1,4 @@
 var db = require('./db');
-var ProjectCollection = require('./ProjectCollection');
-
 
 var getCollection = function(sql_query, row_id, parser) {
 	

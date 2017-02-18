@@ -1,10 +1,11 @@
 var ProjectCollection = require('../models/ProjectCollection');
-var InvitationCollection = require('../models/InvitationCollection');
 var StudentCollection = require('../models/StudentCollection');
+var InvitationCollection = require('../models/InvitationCollection');
 var RequestHandler = require('../models/RequestHandler');
 
 module.exports = function (app) {
-    app.get('/', function (req, res) {
+	app.get('/', function (req, res) {
+		
         res.render('index', {
             students: StudentCollection.collection,
             projects: ProjectCollection.collection,
@@ -16,9 +17,9 @@ module.exports = function (app) {
     });
 	
 	app.post('/handle-request', function(req, res){
+		
 		var handler = new RequestHandler(req.body);
 		var response = handler.insertRequest();
-		var InvitationCollection = require('../models/InvitationCollection');
 		
 		if(response.status == 200){
             res.json(response);
@@ -26,9 +27,9 @@ module.exports = function (app) {
 	});
 	
 	app.post('/handle-invitation', function(req, res){
+		
 		var handler = new RequestHandler(req.body);
 		var response = handler.updateInvitation();
-		var InvitationCollection = require('../models/InvitationCollection');
 		
 		if(response.status == 200){
             res.json(response);

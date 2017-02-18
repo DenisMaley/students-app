@@ -99,14 +99,12 @@
 		data.group.unshift(String(user.student_id));
 
 		var jsonData = JSON.stringify(data);
-		console.log(jsonData);
 		$.ajax({
 			type: 'POST',
 			data: jsonData,
 			contentType: 'application/json',
 			url: '/handle-request',						
 			success: function (result) {
-				console.log(result);
 				if(result.status == 200){
 					setSuccessMessage('Yor request has been successfully registered. You will be redirected in a few seconds.');
 					$('button#send_request').unbind('click');
@@ -121,22 +119,22 @@
 	
 	$('button.inv-adoption').on('click', function(){
 		
+		var $this = $(this);
+		
 		var data = {
-			invitation_adoption: $(this).data('adoption'),
-			invitation_id: $(this).closest('div.inv-block').data('id')
+			invitation_adoption: $this.data('adoption'),
+			invitation_id: $this.closest('div.inv-block').data('id')
 		};
 
 		var jsonData = JSON.stringify(data);
-		console.log(jsonData);
 		$.ajax({
 			type: 'POST',
 			data: jsonData,
 			contentType: 'application/json',
 			url: '/handle-invitation',						
 			success: function (result) {
-				console.log(result);
 				if(result.status == 200){
-					$(this).closest('div.btn-group').after('Yor request has been successfully registered. You will be redirected in a few seconds.');
+					$this.closest('div.btn-group').after('Yor request has been successfully registered. You will be redirected in a few seconds.');
 					$('button.inv-adoption').unbind('click');
 					setTimeout(function() { 
 						window.location.replace('/');
